@@ -8,13 +8,9 @@ const app = express();
 app.use(bodyparser.json());
 
 app.use('/api/v1/posts', (req, res, next) => {
-    // console.log(req.headers.authorization)
     if (req.headers.authorization) {
         const token = req.headers.authorization;
-        // console.log(token)
         Jwt.verify(token, secret, function (err, decoded) {
-
-            // console.log(secret)
             if (err) {
                 return res.status(403).json({
                     status: "failed",
@@ -34,9 +30,8 @@ app.use('/api/v1/posts', (req, res, next) => {
             message: "Not authenticated user"
         })
     }
-    // console.log(token)
-
 })
+
 
 app.use('/api/v1/users', loginRoutes)
 app.use('/api/v1/', postsRoutes)

@@ -32,10 +32,10 @@ router.post("/register",
                     })
                 }
                 else {
-                    // console.log(password)
+                 
                     bcrypt.hash(password, 10, async (err, hash) => {
 
-                        // console.log(hash)
+                       
                         if (err) {
                             return res.status(500).json({
                                 status: "Failed",
@@ -72,18 +72,15 @@ router.post("/login", body('email').isEmail(), async (req, res) => {
         }
         const { email, password } = req.body;
         let user = await Users.find({ email })
-        // console.log(email)
         if (!user.length) {
             res.status(409).json({
                 status: "Failed",
                 message: "There is no account with the entered email"
             })
         } else {
-            // console.log(user[0].password)
+    
             bcrypt.compare(password, user[0].password, (err, result) => {
-                // console.log(password)
-                // console.log(user[0].password)
-                //    console.log(result)
+    
                 if (err) {
                     res.status(500).json({
                         status: "Failed",
@@ -94,11 +91,9 @@ router.post("/login", body('email').isEmail(), async (req, res) => {
                 else {
 
                     if (result) {
-                        // console.log(user[0].id)
                         const token = jwt.sign({
                             exp: Math.floor(Date.now() / 1000) + (60 * 60),
                             data: user[0].id
-                            // console.log
                         }, secret);
                         res.json({
                             status: "Success",

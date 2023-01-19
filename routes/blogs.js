@@ -37,7 +37,6 @@ router.post("/posts", async (req, res) => {
             image: req.body.image,
             user: req.user
         })
-        // console.log(posts)
         console.log(req.user)
         res.json({
             status: "Success",
@@ -56,7 +55,6 @@ router.put('/posts/:id', async (req,res)=>{
         const UserName = await Users.find({_id:req.params.id})
         if(UserName.length){
         const updatedUser = await Users.updateOne({_id:req.params.id}, req.body)
-        //   console.log(UserName)
         const newUsers = await Users.find({_id:req.params.id})
         res.json({
             status:"Successfully Updated",
